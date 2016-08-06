@@ -131,8 +131,8 @@ NavigationPane {
                 if(selected.skipType=="photoset"){
                     var photosetID = selected.photosetID
                     var id1 = photosetID.substr(4,4)
-                    var id2 = photosetID.substring(6,)
-                    var urltoopen = "http://c.3g.163.com/photo/api/set/"+id1+"/"+id2+"json";
+                    var id2 = photosetID.substring(9)
+                    var urltoopen = "http://c.3g.163.com/photo/api/set/"+id1+"/"+id2+".json";
                     var wbv = Qt.createComponent("photos_viewer.qml").createObject(navroot);
                     wbv.u = urltoopen;
                     wbv.post_id = selected.postid

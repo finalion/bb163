@@ -49,8 +49,6 @@ namespace bb
 }
 
 class QTranslator;
-
-
 /*!
  * @brief Application UI object
  *

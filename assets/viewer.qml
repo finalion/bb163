@@ -257,7 +257,7 @@ Page {
             ActionBar.placement: ActionBarPlacement.Signature
             onTriggered: {
                 var wbv = Qt.createComponent("comments.qml").createObject(navroot);
-                wbv.u = "http://comment.api.163.com/api/json/post/list/new/hot/" + board_id + "/" + post_id + "/0/5/10/2/2";
+                wbv.u = "http://comment.api.163.com/api/json/post/list/new/hot/" + board_id + "/" + post_id + "/0/10/10/2/2";
                 wbv.page_title = page_title
                 navroot.push(wbv);
             }

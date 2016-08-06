@@ -30,7 +30,7 @@ ApplicationUI::ApplicationUI() :
     // prepare the localization
     m_pTranslator = new QTranslator(this);
     m_pLocaleHandler = new LocaleHandler(this);
-//    m_pInvokeManager = new bb::system::InvokeManager(this);
+    m_pInvokeManager = new bb::system::InvokeManager(this);
     networkmgr = new QNetworkAccessManager();
 
     mNewsClassId = "T1295501906343";
@@ -320,15 +320,15 @@ void ApplicationUI::setv(const QString &objectName, const QString &inputValue)
 
 void ApplicationUI::viewimage(QString path)
 {
-//    // invoke the system image viewer
-//    InvokeRequest* request = new InvokeRequest();
-//    // Set the URI
-//    request->setUri(path);
-//    request->setTarget("sys.pictures.card.previewer");
-//    request->setAction("bb.action.VIEW");
-//    // Send the invocation request
-//    InvokeTargetReply *cardreply = m_pInvokeManager->invoke(request);
-//    Q_UNUSED(cardreply);
+    // invoke the system image viewer
+    bb::system::InvokeRequest request;
+    // Set the URI
+    request.setUri(path);
+    request.setTarget("sys.pictures.card.previewer");
+    request.setAction("bb.action.VIEW");
+    // Send the invocation request
+    bb::system::InvokeTargetReply *cardreply = m_pInvokeManager->invoke(request);
+    Q_UNUSED(cardreply);
 }
 
 QString ApplicationUI::getNewsClassId()
