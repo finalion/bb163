@@ -46,7 +46,7 @@ Page {
 
         QtObject {
             id: imp
-            
+
             function processNeteasePhotos(txt) {
                 var json = JSON.parse(txt);
                 board_id = json["boardid"]
@@ -100,12 +100,12 @@ Page {
                 onCreationCompleted: {
                     console.log("Phots Listview created. ")
                 }
-                
+
                 onTriggered: {
                     var selected = adm.data(indexPath);
                     // to reserve
                 }
-                
+
                 attachedObjects: [
                     ListScrollStateHandler {
                         onScrollingChanged: {
@@ -115,11 +115,11 @@ Page {
                         }
                     }
                 ]
-                
-                function getContext(){
+
+                function getContext() {
                     return _app;
                 }
-                
+
                 property int font_size: pageroot.basetextsize
                 listItemComponents: [
                     ListItemComponent {
@@ -173,7 +173,7 @@ Page {
             id: refresh
             title: "刷新"
             enabled: true
-            //            imageSource: "asset:///images/icon.png"
+            imageSource: "asset:///icons/ic_reload.png"
             ActionBar.placement: ActionBarPlacement.OnBar
             onTriggered: {
 
@@ -181,10 +181,10 @@ Page {
         }, // ActionItem
         ActionItem {
             id: view_comments
-            title: "查看评论"
+            title: "查看跟帖"
             property string lastFileName: ""
             enabled: true
-            //            imageSource: "asset:///images/icon.png"
+            imageSource: "asset:///icons/ic_view_post.png"
             ActionBar.placement: ActionBarPlacement.Signature
             onTriggered: {
                 var wbv = Qt.createComponent("comments.qml").createObject(navroot);
@@ -194,10 +194,10 @@ Page {
             }
         }, // ActionItem
         ActionItem {
-            id: post_comment
-            title: "评论"
+            id: write_comment
+            title: "跟帖"
             enabled: true
-            //            imageSource: "asset:///images/icon.png"
+            imageSource: "asset:///icons/ic_compose.png"
             ActionBar.placement: ActionBarPlacement.OnBar
             onTriggered: {
             }

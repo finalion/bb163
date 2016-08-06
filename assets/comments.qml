@@ -79,8 +79,8 @@ Page {
         }
     ]
 
-    actionBarVisibility: ChromeVisibility.Visible
-    actionBarAutoHideBehavior: ActionBarAutoHideBehavior.Default
+    actionBarVisibility: ChromeVisibility.Overlay
+    actionBarAutoHideBehavior: ActionBarAutoHideBehavior.HideOnScroll
     
     ScrollView {
         Container {
@@ -123,4 +123,16 @@ Page {
             }
         }
     }
+    
+    actions: [
+        ActionItem {
+            id: write_comment
+            title: "跟帖"
+            enabled: true
+            imageSource: "asset:///icons/ic_compose.png"
+            ActionBar.placement: ActionBarPlacement.Signature
+            onTriggered: {
+            }
+        } // ActionItem
+    ]
 }

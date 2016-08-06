@@ -21,15 +21,15 @@ import bb.system 1.2
 // the first control is a NavigationPane this in order to drill down in the lists.
 NavigationPane {
     id: navroot
-//    property QString news_type
-//    property QString type_title
-//    property QString type_name
+    //    property QString news_type
+    //    property QString type_title
+    //    property QString type_name
     Page {
         id: pageroot
         property int basetextsize: _app.getv("fontsize", "100")
         titleBar: TitleBar {
             // Localized text with the dynamic translation and locale updates support
-            title: qsTr(_app.newsClassName+"新闻") + Retranslate.onLocaleOrLanguageChanged
+            title: qsTr(_app.newsClassName + "新闻") + Retranslate.onLocaleOrLanguageChanged
             scrollBehavior: TitleBarScrollBehavior.NonSticky
         }
         actionBarVisibility: ChromeVisibility.Compact
@@ -88,7 +88,7 @@ NavigationPane {
                 }
             }
         ]
-        
+
         ListView {
             id: lv_main
             dataModel: ArrayDataModel {
@@ -96,7 +96,7 @@ NavigationPane {
             }
             property int start_index: 0
             property string endpoint: "http://c.m.163.com/nc/article/headline/" + _app.newsClassId + "/"
-//            property string endpoint: "http://c.3g.163.com/nc/article/list/" + _app.newsType + "/"
+            //            property string endpoint: "http://c.3g.163.com/nc/article/list/" + _app.newsType + "/"
 
             function resetData() {
                 adm.clear();
@@ -108,14 +108,14 @@ NavigationPane {
                 if (pageroot.loading) {
                     return
                 }
-//                var params = [ "type=all" ];
-//                params.push("page=" + page);
-//                //                var endp = endpoint + "?" + params.join("&");
+                //                var params = [ "type=all" ];
+                //                params.push("page=" + page);
+                //                //                var endp = endpoint + "?" + params.join("&");
                 var endp = endpoint + start_index + "-20.html";
                 console.log(endp);
                 pageroot.loading = true;
                 _app.get(endp);
-                
+
             }
             scrollIndicatorMode: ScrollIndicatorMode.ProportionalBar
             leftPadding: 20.0
@@ -128,19 +128,19 @@ NavigationPane {
             }
             onTriggered: {
                 var selected = adm.data(indexPath);
-                if(selected.skipType=="photoset"){
+                if (selected.skipType == "photoset") {
                     var photosetID = selected.photosetID
-                    var id1 = photosetID.substr(4,4)
+                    var id1 = photosetID.substr(4, 4)
                     var id2 = photosetID.substring(9)
-                    var urltoopen = "http://c.3g.163.com/photo/api/set/"+id1+"/"+id2+".json";
+                    var urltoopen = "http://c.3g.163.com/photo/api/set/" + id1 + "/" + id2 + ".json";
                     var wbv = Qt.createComponent("photos_viewer.qml").createObject(navroot);
                     wbv.u = urltoopen;
                     wbv.post_id = selected.postid
                     wbv.source_txt = selected.source
                     wbv.page_title = selected.title //selected.title.replace(/<.*?>/ig, "")
                     wbv.pub_date = selected.ptime
-                    navroot.push(wbv);    
-                }else{
+                    navroot.push(wbv);
+                } else {
                     var urltoopen = "http://c.m.163.com/nc/article/" + selected.postid + "/full.html";
                     var wbv = Qt.createComponent("viewer.qml").createObject(navroot);
                     wbv.u = urltoopen;
@@ -195,7 +195,7 @@ NavigationPane {
                                 text: ListItemData.source
                                 textStyle.fontSize: FontSize.XSmall
                                 textStyle.fontWeight: FontWeight.W200
-//                                textStyle.fontStyle: FontStyle.Italic
+                                //                                textStyle.fontStyle: FontStyle.Italic
                                 textStyle.textAlign: TextAlign.Left
                                 horizontalAlignment: HorizontalAlignment.Left
                             }
@@ -203,7 +203,7 @@ NavigationPane {
                                 text: ListItemData.replyCount + "评论"
                                 textStyle.fontSize: FontSize.XSmall
                                 textStyle.fontWeight: FontWeight.W200
-//                                textStyle.fontStyle: FontStyle.Italic
+                                //                                textStyle.fontStyle: FontStyle.Italic
                                 textStyle.textAlign: TextAlign.Center
                                 horizontalAlignment: HorizontalAlignment.Center
                             }
@@ -211,7 +211,7 @@ NavigationPane {
                                 text: ListItemData.ptime
                                 textStyle.fontSize: FontSize.XSmall
                                 textStyle.fontWeight: FontWeight.W200
-//                                textStyle.fontStyle: FontStyle.Italic
+                                //                                textStyle.fontStyle: FontStyle.Italic
                                 textStyle.textAlign: TextAlign.Right
                                 horizontalAlignment: HorizontalAlignment.Right
                             }
@@ -225,13 +225,13 @@ NavigationPane {
                 }
             ]
         }
-    
+
         actions: [
             ActionItem {
                 id: profile
                 title: "个人资料"
                 enabled: false
-                //            imageSource: "asset:///images/icon.png"
+                imageSource: "asset:///icons/ic_contact.png"
                 ActionBar.placement: ActionBarPlacement.InOverflow
                 onTriggered: {
                 }
@@ -240,7 +240,7 @@ NavigationPane {
                 id: login
                 title: "登录"
                 enabled: false
-                //            imageSource: "asset:///images/icon.png"
+                imageSource: "asset:///icons/ic_view_grid.png"
                 ActionBar.placement: ActionBarPlacement.InOverflow
                 onTriggered: {
                 }

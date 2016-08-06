@@ -44,6 +44,14 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/cnbeta_451px_1193375_easyicon.png) \
         $$quote($$BASEDIR/assets/colors.xml) \
         $$quote($$BASEDIR/assets/comments.qml) \
+        $$quote($$BASEDIR/assets/icons/ic_compose.png) \
+        $$quote($$BASEDIR/assets/icons/ic_contact.png) \
+        $$quote($$BASEDIR/assets/icons/ic_edit.png) \
+        $$quote($$BASEDIR/assets/icons/ic_feedback.png) \
+        $$quote($$BASEDIR/assets/icons/ic_reload.png) \
+        $$quote($$BASEDIR/assets/icons/ic_textmessage_dk.png) \
+        $$quote($$BASEDIR/assets/icons/ic_view_grid.png) \
+        $$quote($$BASEDIR/assets/icons/ic_view_post.png) \
         $$quote($$BASEDIR/assets/images/icon.png) \
         $$quote($$BASEDIR/assets/main.qml) \
         $$quote($$BASEDIR/assets/photos_viewer.qml) \
@@ -76,6 +84,9 @@ lupdate_inclusion {
         $$quote($$BASEDIR/../assets/*.qml) \
         $$quote($$BASEDIR/../assets/*.js) \
         $$quote($$BASEDIR/../assets/*.qs) \
+        $$quote($$BASEDIR/../assets/icons/*.qml) \
+        $$quote($$BASEDIR/../assets/icons/*.js) \
+        $$quote($$BASEDIR/../assets/icons/*.qs) \
         $$quote($$BASEDIR/../assets/images/*.qml) \
         $$quote($$BASEDIR/../assets/images/*.js) \
         $$quote($$BASEDIR/../assets/images/*.qs)

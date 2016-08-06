@@ -1,10 +1,18 @@
 1
-13
+21
 about.qml
 cnbeta_451px_1193375_easyicon.png
 colors.xml
 comments.qml
 Copy of main.qml
+icons/ic_compose.png
+icons/ic_contact.png
+icons/ic_edit.png
+icons/ic_feedback.png
+icons/ic_reload.png
+icons/ic_textmessage_dk.png
+icons/ic_view_grid.png
+icons/ic_view_post.png
 images/icon.png
 main.qml
 Net.qml
