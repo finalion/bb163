@@ -5,6 +5,9 @@ Page {
     id: pageroot
     property string u
     onUChanged: {
+        u = u.trim()
+        adm.clear()
+        scrollView.scrollToPoint(0.0, 0.0)
         if (u.length > 0) {
             console.log("Loading " + u)
             netmgr.ajax("GET", u, [], function(b, d) {
@@ -66,6 +69,7 @@ Page {
     actionBarAutoHideBehavior: ActionBarAutoHideBehavior.HideOnScroll
 
     ScrollView {
+        id: scrollView
         Container {
             leftPadding: 20.0
             rightPadding: 20.0
@@ -176,7 +180,7 @@ Page {
             imageSource: "asset:///icons/ic_reload.png"
             ActionBar.placement: ActionBarPlacement.OnBar
             onTriggered: {
-
+                u += " "
             }
         }, // ActionItem
         ActionItem {

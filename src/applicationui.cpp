@@ -60,6 +60,7 @@ ApplicationUI::ApplicationUI() :
 void ApplicationUI::initNewsHash()
 {
     newsHash.insert("T1295501906343", "头条");
+    newsHash.insert("T1467284926140", "精选");
     newsHash.insert("T1347415223240", "安卓头条");
     newsHash.insert("T1295505301714", "社会");
     newsHash.insert("T1295505330581", "国内");

@@ -29,7 +29,7 @@ NavigationPane {
         property int basetextsize: _app.getv("fontsize", "100")
         titleBar: TitleBar {
             // Localized text with the dynamic translation and locale updates support
-            title: qsTr(_app.newsClassName + "新闻") + Retranslate.onLocaleOrLanguageChanged
+            title: qsTr(_app.newsClassName) + Retranslate.onLocaleOrLanguageChanged
             scrollBehavior: TitleBarScrollBehavior.NonSticky
         }
         actionBarVisibility: ChromeVisibility.Compact
@@ -37,9 +37,8 @@ NavigationPane {
         onCreationCompleted: {
             _app.returned.connect(appendData)
         }
-        property bool loading: false
         function appendData(success, resp) {
-            loading = false
+            loadIndicator.stop()
             if (success) {
                 var dobj = JSON.parse(resp);
                 var items = dobj[_app.newsClassId];
@@ -88,145 +87,168 @@ NavigationPane {
                 }
             }
         ]
-
-        ListView {
-            id: lv_main
-            dataModel: ArrayDataModel {
-                id: adm
-            }
-            property int start_index: 0
-            property string endpoint: "http://c.m.163.com/nc/article/headline/" + _app.newsClassId + "/"
-            //            property string endpoint: "http://c.3g.163.com/nc/article/list/" + _app.newsType + "/"
-
-            function resetData() {
-                adm.clear();
-                pageroot.loading = false;
-                start_index = 0;
-                load()
-            }
-            function load() {
-                if (pageroot.loading) {
-                    return
-                }
-                //                var params = [ "type=all" ];
-                //                params.push("page=" + page);
-                //                //                var endp = endpoint + "?" + params.join("&");
-                var endp = endpoint + start_index + "-20.html";
-                console.log(endp);
-                pageroot.loading = true;
-                _app.get(endp);
-
-            }
-            scrollIndicatorMode: ScrollIndicatorMode.ProportionalBar
-            leftPadding: 20.0
-            rightPadding: 20.0
-            bottomPadding: 50.0
+        Container {
             horizontalAlignment: HorizontalAlignment.Fill
-            scrollRole: ScrollRole.Main
-            onCreationCompleted: {
-                resetData()
+            layout: DockLayout {
+
             }
-            onTriggered: {
-                var selected = adm.data(indexPath);
-                if (selected.skipType == "photoset") {
-                    var photosetID = selected.photosetID
-                    var id1 = photosetID.substr(4, 4)
-                    var id2 = photosetID.substring(9)
-                    var urltoopen = "http://c.3g.163.com/photo/api/set/" + id1 + "/" + id2 + ".json";
-                    var wbv = Qt.createComponent("photos_viewer.qml").createObject(navroot);
-                    wbv.u = urltoopen;
-                    wbv.post_id = selected.postid
-                    wbv.source_txt = selected.source
-                    wbv.page_title = selected.title //selected.title.replace(/<.*?>/ig, "")
-                    wbv.pub_date = selected.ptime
-                    navroot.push(wbv);
-                } else {
-                    var urltoopen = "http://c.m.163.com/nc/article/" + selected.postid + "/full.html";
-                    var wbv = Qt.createComponent("viewer.qml").createObject(navroot);
-                    wbv.u = urltoopen;
-                    wbv.post_id = selected.postid
-                    wbv.source_txt = selected.source
-                    wbv.page_description = selected.digest //selected.hometext.replace(/<.*?>/ig, "")
-                    wbv.page_title = selected.title //selected.title.replace(/<.*?>/ig, "")
-                    wbv.pub_date = selected.ptime
-                    navroot.push(wbv);
+            ActivityIndicator {
+                id: loadIndicator
+                preferredHeight: 120
+                preferredWidth: 120
+                horizontalAlignment: HorizontalAlignment.Center
+                verticalAlignment: VerticalAlignment.Center
+            }
+            ListView {
+                id: lv_main
+                horizontalAlignment: HorizontalAlignment.Fill | HorizontalAlignment.Center
+                verticalAlignment: VerticalAlignment.Center
+                scrollIndicatorMode: ScrollIndicatorMode.ProportionalBar
+                leftPadding: 20.0
+                rightPadding: 20.0
+                bottomPadding: 50.0
+                scrollRole: ScrollRole.Main
+
+                dataModel: ArrayDataModel {
+                    id: adm
                 }
-            }
-            attachedObjects: [
-                ListScrollStateHandler {
-                    onScrollingChanged: {
-                        if (scrolling && atEnd) {
-                            lv_main.start_index += 20;
-                            lv_main.load()
-                        }
+                property int start_index: 0
+                property string endpoint: "http://c.m.163.com/nc/article/headline/" + _app.newsClassId + "/"
+                //            property string endpoint: "http://c.3g.163.com/nc/article/list/" + _app.newsType + "/"
+
+                function resetData() {
+                    adm.clear()
+                    lv_main.scrollToItem(0)
+                    loadIndicator.stop()
+                    start_index = 0
+                    load()
+                }
+                function load() {
+                    if (loadIndicator.running) {
+                        return
+                    }
+                    var endp = endpoint + start_index + "-20.html";
+                    console.log(endp);
+                    loadIndicator.start()
+                    _app.get(endp);
+                }
+
+                onCreationCompleted: {
+                    resetData()
+                }
+                onTriggered: {
+                    var selected = adm.data(indexPath);
+                    if (selected.skipType == "photoset") {
+                        var photosetID = selected.photosetID
+                        var id1 = photosetID.substr(4, 4)
+                        var id2 = photosetID.substring(9)
+                        var urltoopen = "http://c.3g.163.com/photo/api/set/" + id1 + "/" + id2 + ".json";
+                        var wbv = Qt.createComponent("photos_viewer.qml").createObject(navroot);
+                        wbv.u = urltoopen;
+                        wbv.post_id = selected.postid
+                        wbv.source_txt = selected.source
+                        wbv.page_title = selected.title //selected.title.replace(/<.*?>/ig, "")
+                        wbv.pub_date = selected.ptime
+                        navroot.push(wbv);
+                    } else {
+                        var urltoopen = "http://c.m.163.com/nc/article/" + selected.postid + "/full.html";
+                        var wbv = Qt.createComponent("viewer.qml").createObject(navroot);
+                        wbv.u = urltoopen;
+                        wbv.post_id = selected.postid
+                        wbv.source_txt = selected.source
+                        wbv.page_description = selected.digest //selected.hometext.replace(/<.*?>/ig, "")
+                        wbv.page_title = selected.title //selected.title.replace(/<.*?>/ig, "")
+                        wbv.pub_date = selected.ptime
+                        navroot.push(wbv);
                     }
                 }
-            ]
-            property int font_size: pageroot.basetextsize
-            listItemComponents: [
-                ListItemComponent {
-                    id: lcroot
-                    Container {
-                        id: croot
-                        bottomMargin: 20
-                        Label {
-                            text: ListItemData.title //.replace(/<.*?>/ig, "")
-                            multiline: true
-                            textStyle.fontSize: FontSize.XLarge
-                            textStyle.color: ui.palette.primaryDark
-                            verticalAlignment: VerticalAlignment.Top
-                            horizontalAlignment: HorizontalAlignment.Fill
+                attachedObjects: [
+                    ListScrollStateHandler {
+                        onScrollingChanged: {
+                            if (scrolling && atEnd) {
+                                lv_main.start_index += 20;
+                                lv_main.load()
+                            }
                         }
-                        Label {
-                            text: ListItemData.digest
-                            textFormat: TextFormat.Html
-                            multiline: true
-                            textStyle.fontSizeValue: croot.ListItem.view.font_size * 0.95
-                            textStyle.fontSize: FontSize.PercentageValue
-                            bottomMargin: 15.0
-                            textStyle.textAlign: TextAlign.Justify
-                        }
+                    }
+                ]
+                property int font_size: pageroot.basetextsize
+                listItemComponents: [
+                    ListItemComponent {
+                        id: lcroot
                         Container {
-                            layout: DockLayout {
-                            }
-                            horizontalAlignment: HorizontalAlignment.Fill
-                            verticalAlignment: VerticalAlignment.Bottom
+                            id: croot
+                            bottomMargin: 20
                             Label {
-                                text: ListItemData.source
-                                textStyle.fontSize: FontSize.XSmall
-                                textStyle.fontWeight: FontWeight.W200
-                                //                                textStyle.fontStyle: FontStyle.Italic
-                                textStyle.textAlign: TextAlign.Left
-                                horizontalAlignment: HorizontalAlignment.Left
+                                text: ListItemData.title //.replace(/<.*?>/ig, "")
+                                multiline: true
+                                textStyle.fontSize: FontSize.XLarge
+                                textStyle.color: ui.palette.primaryDark
+                                verticalAlignment: VerticalAlignment.Top
+                                horizontalAlignment: HorizontalAlignment.Fill
                             }
                             Label {
-                                text: ListItemData.replyCount + "评论"
-                                textStyle.fontSize: FontSize.XSmall
-                                textStyle.fontWeight: FontWeight.W200
-                                //                                textStyle.fontStyle: FontStyle.Italic
-                                textStyle.textAlign: TextAlign.Center
-                                horizontalAlignment: HorizontalAlignment.Center
+                                text: ListItemData.digest
+                                textFormat: TextFormat.Html
+                                multiline: true
+                                textStyle.fontSizeValue: croot.ListItem.view.font_size * 0.95
+                                textStyle.fontSize: FontSize.PercentageValue
+                                bottomMargin: 15.0
+                                textStyle.textAlign: TextAlign.Justify
                             }
-                            Label {
-                                text: ListItemData.ptime
-                                textStyle.fontSize: FontSize.XSmall
-                                textStyle.fontWeight: FontWeight.W200
-                                //                                textStyle.fontStyle: FontStyle.Italic
-                                textStyle.textAlign: TextAlign.Right
-                                horizontalAlignment: HorizontalAlignment.Right
+                            Container {
+                                layout: DockLayout {
+                                }
+                                horizontalAlignment: HorizontalAlignment.Fill
+                                verticalAlignment: VerticalAlignment.Bottom
+                                Label {
+                                    text: ListItemData.source
+                                    textStyle.fontSize: FontSize.XSmall
+                                    textStyle.fontWeight: FontWeight.W200
+                                    //                                textStyle.fontStyle: FontStyle.Italic
+                                    textStyle.textAlign: TextAlign.Left
+                                    horizontalAlignment: HorizontalAlignment.Left
+                                }
+                                Label {
+                                    text: ListItemData.replyCount + "评论"
+                                    textStyle.fontSize: FontSize.XSmall
+                                    textStyle.fontWeight: FontWeight.W200
+                                    //                                textStyle.fontStyle: FontStyle.Italic
+                                    textStyle.textAlign: TextAlign.Center
+                                    horizontalAlignment: HorizontalAlignment.Center
+                                }
+                                Label {
+                                    text: ListItemData.ptime
+                                    textStyle.fontSize: FontSize.XSmall
+                                    textStyle.fontWeight: FontWeight.W200
+                                    //                                textStyle.fontStyle: FontStyle.Italic
+                                    textStyle.textAlign: TextAlign.Right
+                                    horizontalAlignment: HorizontalAlignment.Right
+                                }
                             }
+
+                            Divider {
+
+                            }
+
                         }
-
-                        Divider {
-
-                        }
-
                     }
-                }
-            ]
+                ]
+            }
+
         }
 
         actions: [
+            ActionItem {
+                id: refresh
+                title: "刷新"
+                enabled: true
+                imageSource: "asset:///icons/ic_reload.png"
+                ActionBar.placement: ActionBarPlacement.Signature
+                onTriggered: {
+                    lv_main.resetData()
+                }
+            }, // ActionItem
             ActionItem {
                 id: profile
                 title: "个人资料"

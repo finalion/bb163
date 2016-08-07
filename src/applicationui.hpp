@@ -66,12 +66,11 @@ public:
     {
     }
 
-    Q_INVOKABLE
-    void get(const QString endpoint);Q_SIGNAL
-    void returned(bool success, QString resp);Q_INVOKABLE
-    static void setv(const QString &objectName, const QString &inputValue);Q_INVOKABLE
-    static QString getv(const QString &objectName, const QString &defaultValue);Q_INVOKABLE
-    void viewimage(QString path);
+    Q_INVOKABLE void get(const QString endpoint);
+    Q_SIGNAL void returned(bool success, QString resp);
+    Q_INVOKABLE static void setv(const QString &objectName, const QString &inputValue);
+    Q_INVOKABLE static QString getv(const QString &objectName, const QString &defaultValue);
+    Q_INVOKABLE void viewimage(QString path);
 
     QString getNewsClassId();
     QString getNewsClassName();

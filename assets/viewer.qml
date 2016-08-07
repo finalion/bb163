@@ -3,6 +3,9 @@ import cn.anpho 1.0
 Page {
     property string u
     onUChanged: {
+        u = u.trim()
+        adm.clear()
+        scrollView.scrollToPoint(0.0, 0.0)
         if (u.length > 0) {
             console.log("Loading " + u)
             netmgr.ajax("GET", u, [], function(b, d) {
@@ -29,32 +32,7 @@ Page {
         Net {
             id: netmgr
         },
-        QtObject {
-            id: textEx
-            property variant ex_desc: /meta.*?description.*?content=\"(.*?)\"/igm
-            property variant ex_content: /<div.*?content[^>]*>([\s\S]*?)<\/div/gim
 
-            property variant clearTags: /<(?!img|!br|!p).*?>/igm //remove all tags except img/br/p
-            property variant extractParagraph2split: /<img[^>]*?>/igm
-
-            function getDescription(htmltext) {
-                var t = ex_desc.exec(htmltext);
-                if (t.length > 1) {
-                    return t[1];
-                }
-            }
-            function getContents(htmltext) {
-                var t = ex_content.exec(htmltext);
-                if (t.length > 1) {
-                    var d = t[1];
-                    console.log(d);
-                    return d;
-                } else {
-                    return "";
-                }
-            }
-
-        },
         ComponentDefinition {
             id: para
             Label {
@@ -65,16 +43,6 @@ Page {
                 textStyle.fontSize: FontSize.PercentageValue
                 implicitLayoutAnimationsEnabled: false
                 //                text:  "<html><b>Cascades</b> is <i>awesome!</i></html>"
-            }
-        },
-
-        ComponentDefinition {
-            id: html_para
-            WebView {
-                //                settings.defaultFontSizeFollowsSystemFontSize: true
-                settings.textAutosizingEnabled: true
-                settings.minimumFontSize: 20
-                implicitLayoutAnimationsEnabled: false
             }
         },
 
@@ -123,7 +91,8 @@ Page {
             function processNetease(txt) {
                 var newsJson = JSON.parse(txt);
                 var details = newsJson[post_id];
-                board_id = details.replyBoard
+                var rb = details.replyBoard
+                board_id = rb ? rb : ""     //此处有可能无replyBoard字段，为禁止跟帖的新闻
                 var paras = details.body.split(/<\/?p>/);
                 paras = paras.filter(function(p) {
                         return (p != undefined) && (p != "")
@@ -148,11 +117,11 @@ Page {
                         var link = getLink(details, p)
                         p = p.replace(/<!--link\d+-->/gi, "")
                         var text2add = para.createObject(pageroot)
-                        text2add.text = "<html><a href='" + link["href"] + "'>" + p + "</a></html>";     //!! <html>前加空格无法显示html
+                        text2add.text = "<html><a href='" + link["href"] + "'>" + p + "</a></html>"; //!! <html>前加空格无法显示html
                         holder.add(text2add)
                     } else {
                         var text2add = para.createObject(pageroot)
-                        text2add.text = "<html>" + p+ "</html>";     //!! <html>前加空格无法显示html
+                        text2add.text = "<html>" + p + "</html>"; //!! <html>前加空格无法显示html
                         holder.add(text2add)
                     }
                     console.log(p)
@@ -163,29 +132,6 @@ Page {
                 holder.removeAll();
                 processNetease(txt)
                 console.log("process over.")
-                //                var removeP = txt.replace(/<p[^>]*?>/igm, "[param]");
-                //                var removeIMG = removeP.replace(/<img.*?src.*?[\'\"]([^\'|^\"]*?)[\'|\"][^>]*?>/igm, function($0, $1, $2) {
-                //                        console.log($1);
-                //                        return "[img]" + $1 + "[param]"
-                //                    })
-                //                var clearALL = removeIMG.replace(/<[^>]*?>/igm, "");
-                //                var paragraphs = clearALL.split("[param]");
-                //                for (var i = 0; i < paragraphs.length; i ++) {
-                //                    var cur = paragraphs[i];
-                //                    if (cur.indexOf("[img]") > -1) {
-                //                        //append image
-                //                        cur = cur.replace("[img]", "");
-                //                        var image2add = graph.createObject(pageroot);
-                //                        image2add.url = cur;
-                //                        holder.add(image2add)
-                //                    } else if (cur.trim().length == 0) {
-                //                        //bypass
-                //                    } else {
-                //                        var text2add = para.createObject(pageroot)
-                //                        text2add.text = "　　" + cur;
-                //                        holder.add(text2add)
-                //                    }
-                //                }
             }
 
         }
@@ -195,6 +141,7 @@ Page {
     actionBarAutoHideBehavior: ActionBarAutoHideBehavior.HideOnScroll
 
     ScrollView {
+        id: scrollView
         Container {
             leftPadding: 20.0
             rightPadding: 20.0
@@ -255,7 +202,7 @@ Page {
             imageSource: "asset:///icons/ic_reload.png"
             ActionBar.placement: ActionBarPlacement.OnBar
             onTriggered: {
-            
+                u += " "
             }
         }, // ActionItem
         ActionItem {
@@ -267,9 +214,11 @@ Page {
             ActionBar.placement: ActionBarPlacement.Signature
             onTriggered: {
                 var wbv = Qt.createComponent("comments.qml").createObject(navroot);
-                wbv.u = "http://comment.api.163.com/api/json/post/list/new/hot/" + board_id + "/" + post_id + "/0/10/10/2/2";
-                wbv.page_title = page_title
-                navroot.push(wbv);
+                if (board_id) {
+                    wbv.u = "http://comment.api.163.com/api/json/post/list/new/hot/" + board_id + "/" + post_id + "/0/10/10/2/2";
+                    wbv.page_title = page_title
+                    navroot.push(wbv);
+                }
             }
         }, // ActionItem
         ActionItem {
