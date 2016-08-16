@@ -70,6 +70,9 @@
     <!--  Name of author which is used for signing. Must match the developer name of your development certificate. -->
     <description>BB10 &#x539f;&#x751f;&#x7f51;&#x6613;&#x65b0;&#x95fb;&#x5ba2;&#x6237;&#x7aef;&#xD;
 &#x7b80;&#x6d01;&#xff0c;&#x8fc5;&#x901f;&#xff01;</description>
+    <icon>
+       <image>appicon.png</image>
+    </icon>
     <author>vleon</author>
 
     <!--  Unique author ID assigned by signing authority. Required if using debug tokens. -->
@@ -81,9 +84,6 @@
     </initialWindow>
 
     <!--  The icon for the application, which should be 114x114. -->
-    <icon>
-        <image>appicon.png</image>
-    </icon>
 
     <asset path="icon.png">icon.png</asset>
     <asset path="assets">assets</asset>
@@ -92,7 +92,8 @@
     <asset path="translations" dest="qm">
         <include name="*.qm"/>
     </asset>
-    <asset path="D:/Users/vleon/Desktop/app/assets/blackberry/appicon.png">appicon.png</asset>
+    <asset path="D:/Users/vleon/momentics-workspace/163News">163News</asset>
+    <asset path="assets/icons/appicon.png">appicon.png</asset>
 
     <!-- Request permission to execute native code.  Required for native applications. -->
     <permission system="true">run_native</permission>

@@ -4,7 +4,6 @@ Page {
     property string u
     onUChanged: {
         u = u.trim()
-        adm.clear()
         scrollView.scrollToPoint(0.0, 0.0)
         if (u.length > 0) {
             console.log("Loading " + u)
@@ -92,7 +91,7 @@ Page {
                 var newsJson = JSON.parse(txt);
                 var details = newsJson[post_id];
                 var rb = details.replyBoard
-                board_id = rb ? rb : ""     //此处有可能无replyBoard字段，为禁止跟帖的新闻
+                board_id = rb ? rb : "" //此处有可能无replyBoard字段，为禁止跟帖的新闻
                 var paras = details.body.split(/<\/?p>/);
                 paras = paras.filter(function(p) {
                         return (p != undefined) && (p != "")
@@ -169,26 +168,22 @@ Page {
             //                textStyle.fontSize: FontSize.PercentageValue
             //                opacity: 0.8
             //            }
-            //            Divider {
-            //                topMargin: 20.0
-            //                bottomMargin: 20.0
-            //            }
+
             Container {
                 id: holder
                 horizontalAlignment: HorizontalAlignment.Fill
-                //                Label {
-                //                    text: qsTr("Loading ...")
-                //                    textStyle.textAlign: TextAlign.Center
-                //                    horizontalAlignment: HorizontalAlignment.Center
-                //                    textStyle.fontWeight: FontWeight.W100
-                //
-                //                }
-                WebView {
-                    html: qsTr("Loading ...")
+//                verticalAlignment: VerticalAlignment.Fill
+                bottomMargin: 100
+                Label {
+                    text: qsTr("Loading ...")
+                    textStyle.textAlign: TextAlign.Center
+                    horizontalAlignment: HorizontalAlignment.Center
+                    textStyle.fontWeight: FontWeight.W100
+
                 }
             }
             Divider {
-                opacity: 0.1
+                opacity: 0
                 topMargin: 150.0
             }
         }

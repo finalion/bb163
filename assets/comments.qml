@@ -63,7 +63,7 @@ Page {
                     var post2add = post.createObject(pageroot)
                     post2add.author = hotPost1["f"].replace("&nbsp;","     ")
                     post2add.time = hotPost1["t"];
-                    post2add.content = hotPost1["b"]
+                    post2add.content = hotPost1["b"].replace("<br>","\n")
                     post2add.votes = hotPost1["v"]+"赞";
                     console.log("---->",post2add.author)
                     holder.add(post2add)

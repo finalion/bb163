@@ -6,7 +6,6 @@ Page {
     property string u
     onUChanged: {
         u = u.trim()
-        adm.clear()
         scrollView.scrollToPoint(0.0, 0.0)
         if (u.length > 0) {
             console.log("Loading " + u)
@@ -132,7 +131,12 @@ Page {
                             id: croot
                             bottomMargin: 20
                             horizontalAlignment: HorizontalAlignment.Fill
-                            verticalAlignment: VerticalAlignment.Bottom
+                            verticalAlignment: VerticalAlignment.Center
+                            attachedObjects: [
+                                DisplayInfo {
+                                    id: displayInfo
+                                }
+                            ]
                             WebImageView {
                                 id: wiv_photo
                                 url: ListItemData["imgurl"]
@@ -148,26 +152,26 @@ Page {
                             }
                             Label {
                                 text: ListItemData["note"]
-                                textStyle.fontSize: FontSize.XSmall
+                                multiline: true
                                 textStyle.fontWeight: FontWeight.W200
                                 //                                textStyle.fontStyle: FontStyle.Italic
-                                textStyle.textAlign: TextAlign.Left
+                                textStyle.textAlign: TextAlign.Left 
+                                textStyle.fontSizeValue: croot.ListItem.view.font_size* 0.95
+                                textStyle.fontSize: FontSize.PercentageValue
                                 horizontalAlignment: HorizontalAlignment.Fill
                             }
 
                             Divider {
-
+                                opacity: 0.8
+                                topMargin: 20.0
                             }
-
-                            attachedObjects: [
-                                DisplayInfo {
-                                    id: displayInfo
-                                }
-                            ]
-
                         }
                     }
                 ]
+            }
+            Divider {
+                opacity: 0.8
+                topMargin: 150.0
             }
         }
     }

@@ -20,42 +20,56 @@ import bb.system 1.2
 
 TabbedPane {
     id: mainTab
+//    property NavigationPane np
+    showTabsOnActionBar: false
     Menu.definition: MenuDefinition {
         settingsAction: SettingsActionItem {
             onTriggered: {
-                var settingspage = Qt.createComponent("settings.qml").createObject(navroot);
-                settingspage.nav = navroot;
-                navroot.push(settingspage)
+                var settingspage = Qt.createComponent("settings.qml").createObject(mainTab);                
+//                settingspage.nav = navroot;
+//                np.push(settingspage)
             }
         }
         helpAction: HelpActionItem {
             onTriggered: {
-                var aboutpage = Qt.createComponent("about.qml").createObject(navroot);
-                navroot.push(aboutpage)
+                var aboutpage = Qt.createComponent("about.qml").createObject(mainTab);
+//                np.push(aboutpage)
             }
         }
     }
-
-    showTabsOnActionBar: false
-
     Tab {
         id: tabHead
         title: "头条"
         delegateActivationPolicy: TabDelegateActivationPolicy.ActivateWhenSelected
         delegate: Delegate {
             id: tabDelegateHead
-            //            News {
-            ////                type_title: tabHead.title
-            ////                news_type: "T1295501906343"
-            //            }
+//                        News {
+            //                type_title: tabHead.title
+            //                news_type: "T1453256275238"
+//                        }
             source: "News.qml"
 
         }
         onTriggered: {
-            _app.newsClassId = "T1295501906343"
+            _app.newsClassId = "T1453256275238"
         }
     }
-
+    Tab {
+        id: tabSelected
+        title: "精选"
+        delegateActivationPolicy: TabDelegateActivationPolicy.ActivateWhenSelected
+        delegate: Delegate {
+            id: tabDelegateSelected
+            //            News {
+            //                type_title: tabSociety.title
+            //                news_type: "T1295505301714"
+            //            }
+            source: "News.qml"
+        }
+        onTriggered: {
+            _app.newsClassId = "T1467284926140"
+        }
+    }
     Tab {
         id: tabSociety
         title: "社会"
@@ -69,41 +83,7 @@ TabbedPane {
             source: "News.qml"
         }
         onTriggered: {
-            _app.newsClassId = "T1295505301714"
-        }
-    }
-
-    Tab {
-        id: tabDomestic
-        title: "国内"
-        delegateActivationPolicy: TabDelegateActivationPolicy.ActivateWhenSelected
-        delegate: Delegate {
-            id: tabDelegateDomestic
-//            News {
-//                type_title: tabDomestic.title
-//                news_type: "T1295505330581"
-//            }
-            source: "News.qml"
-        }
-        onTriggered: {
-            _app.newsClassId = "T1295505330581"
-        }
-    }
-
-    Tab {
-        id: tabInternational
-        title: "国际"
-        delegateActivationPolicy: TabDelegateActivationPolicy.ActivateWhenSelected
-        delegate: Delegate {
-            id: tabDelegateInternational
-//            News {
-//                type_title: tabInternational.title
-//                news_type: "T1295505403327"
-//            }
-            source: "News.qml"
-        }
-        onTriggered: {
-            _app.newsClassId = "T1295505403327"
+            _app.newsClassId = "T1453269751664"
         }
     }
 
@@ -120,7 +100,7 @@ TabbedPane {
             source: "News.qml"
         }
         onTriggered: {
-            _app.newsClassId = "T1295505705196"
+            _app.newsClassId = "T1453256688395"
         }
     }
 
@@ -137,7 +117,7 @@ TabbedPane {
             source: "News.qml"
         }
         onTriggered: {
-            _app.newsClassId = "T1295507084100"
+            _app.newsClassId = "T1453256766468"
         }
     }
 
@@ -154,7 +134,7 @@ TabbedPane {
             source: "News.qml"
         }
         onTriggered: {
-            _app.newsClassId = "T1295506658957"
+            _app.newsClassId = "T1453255581705"
         }
     }
 
@@ -171,7 +151,7 @@ TabbedPane {
             source: "News.qml"
         }
         onTriggered: {
-            _app.newsClassId = "T1295505916992"
+            _app.newsClassId = "T1453256532098"
         }
     }
 
@@ -188,7 +168,7 @@ TabbedPane {
             source: "News.qml"
         }
         onTriggered: {
-            _app.newsClassId = "T1295507338077"
+            _app.newsClassId = "T1453259252417"
         }
     }
 
@@ -205,7 +185,39 @@ TabbedPane {
             source: "News.qml"
         }
         onTriggered: {
-            _app.newsClassId = "T1295505447897"
+            _app.newsClassId = "T1453259453966"
+        }
+    }
+//    Tab {
+//        id: tabPics
+//        title: "图片"
+//        delegateActivationPolicy: TabDelegateActivationPolicy.ActivateWhenSelected
+//        delegate: Delegate {
+//            id: tabDelegatePics
+//            //            News {
+//            //                type_title: tabMilitary.title
+//            //                news_type: "T1295505447897"
+//            //            }
+//            source: "News.qml"
+//        }
+//        onTriggered: {
+//            _app.newsClassId = "T1453260901051"
+//        }
+//    }
+    Tab {
+        id: tabHistory
+        title: "历史"
+        delegateActivationPolicy: TabDelegateActivationPolicy.ActivateWhenSelected
+        delegate: Delegate {
+            id: tabDelegateHistory
+            //            News {
+            //                type_title: tabMilitary.title
+            //                news_type: "T1295505447897"
+            //            }
+            source: "News.qml"
+        }
+        onTriggered: {
+            _app.newsClassId = "T1453259573806"
         }
     }
 }

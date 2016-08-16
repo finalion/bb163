@@ -41,9 +41,9 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/News.qml) \
         $$quote($$BASEDIR/assets/Post.qml) \
         $$quote($$BASEDIR/assets/about.qml) \
-        $$quote($$BASEDIR/assets/cnbeta_451px_1193375_easyicon.png) \
         $$quote($$BASEDIR/assets/colors.xml) \
         $$quote($$BASEDIR/assets/comments.qml) \
+        $$quote($$BASEDIR/assets/icons/appicon.png) \
         $$quote($$BASEDIR/assets/icons/ic_compose.png) \
         $$quote($$BASEDIR/assets/icons/ic_contact.png) \
         $$quote($$BASEDIR/assets/icons/ic_edit.png) \

@@ -23,7 +23,7 @@ NavigationPane {
     id: navroot
     //    property QString news_type
     //    property QString type_title
-    //    property QString type_name
+    //    property QString type_name    
     Page {
         id: pageroot
         property int basetextsize: _app.getv("fontsize", "100")
@@ -31,12 +31,46 @@ NavigationPane {
             // Localized text with the dynamic translation and locale updates support
             title: qsTr(_app.newsClassName) + Retranslate.onLocaleOrLanguageChanged
             scrollBehavior: TitleBarScrollBehavior.NonSticky
+            //            kind: TitleBarKind.FreeForm
+            //            kindProperties: FreeFormTitleBarKindProperties {
+            //                Container {
+            //                    layout: DockLayout { }
+            //                    leftPadding: 10
+            //                    rightPadding: 10
+            //                    Label {
+            //                        text: "title"
+            //                        textStyle {
+            //                            color:  ui.palette.primaryDark
+            //                        }
+            //                        horizontalAlignment: HorizontalAlignment.Left
+            //                        verticalAlignment: VerticalAlignment.Center
+            //                        layoutProperties: StackLayoutProperties { spaceQuota: 1 }
+            //                    }
+            //                    SegmentedControl {
+            //                        id: segmentedControl
+            //                        horizontalAlignment: HorizontalAlignment.Right
+            //                        verticalAlignment: VerticalAlignment.Center
+            //                        Option {
+            //                            text: "全部"
+            //                            value: 0
+            //                        }
+            //                        Option {
+            //                            text: "图集"
+            //                            value: 1
+            //                        }
+            //                        onSelectedOptionChanged: {
+            //                            myExpandable.expandMode = selectedOption.value
+            //                        }
+            //                    }
+            //                }
+            //            }
         }
         actionBarVisibility: ChromeVisibility.Compact
         actionBarAutoHideBehavior: ActionBarAutoHideBehavior.HideOnScroll
         onCreationCompleted: {
             _app.returned.connect(appendData)
         }
+        
         function appendData(success, resp) {
             loadIndicator.stop()
             if (success) {
@@ -176,9 +210,20 @@ NavigationPane {
                 listItemComponents: [
                     ListItemComponent {
                         id: lcroot
+                        
                         Container {
                             id: croot
                             bottomMargin: 20
+                            attachedObjects: [
+                                QtObject {
+                                    id: listUtil
+                                    function digest() {
+                                        var digest = ListItemData.digest
+                                        return digest ? digest + " ..." : ""
+                                    }
+                                }
+                            ]
+
                             Label {
                                 text: ListItemData.title //.replace(/<.*?>/ig, "")
                                 multiline: true
@@ -188,7 +233,7 @@ NavigationPane {
                                 horizontalAlignment: HorizontalAlignment.Fill
                             }
                             Label {
-                                text: ListItemData.digest
+                                text: listUtil.digest()
                                 textFormat: TextFormat.Html
                                 multiline: true
                                 textStyle.fontSizeValue: croot.ListItem.view.font_size * 0.95
