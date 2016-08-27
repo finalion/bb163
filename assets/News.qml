@@ -87,12 +87,14 @@ NavigationPane {
             }
         }
         function errormsg(msg) {
-            ssd.err = msg;
-            ssd.show();
+            sst.err = msg;
+            sst.show();
         }
         attachedObjects: [
             SystemToast {
                 id: sst
+                property string err
+                body: qsTr("Error fetching data, Server response is [%1], please check your internet connection.").arg(err)
             },
             Net {
                 id: net

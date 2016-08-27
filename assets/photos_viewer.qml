@@ -137,17 +137,38 @@ Page {
                                     id: displayInfo
                                 }
                             ]
-                            WebImageView {
-                                id: wiv_photo
-                                url: ListItemData["imgurl"]
-                                preferredWidth: displayInfo.pixelSize.width
-                                scalingMethod: ScalingMethod.AspectFit
+                            Container {
                                 horizontalAlignment: HorizontalAlignment.Center
-                                implicitLayoutAnimationsEnabled: false
-                                gestureHandlers: TapHandler {
-                                    onTapped: {
-                                        croot.ListItem.view.getContext().viewimage(wiv_photo.getCachedPath());
+                                ProgressIndicator {
+                                    fromValue: 0
+                                    toValue: 1
+                                    value: wiv_photo.loading
+                                    visible: wiv_photo.loading>0
+                                    onProgressChanged: {
+                                        if (progress == 1) {
+                                            visible = false
+                                            wiv_photo.visible = true
+                                        }
                                     }
+                                }
+                                WebImageView {
+                                    id: wiv_photo
+                                    url: "asset:///images/default.png" //ListItemData["imgurl"]
+                                    preferredWidth: 200
+                                    scalingMethod: ScalingMethod.AspectFit
+                                    horizontalAlignment: HorizontalAlignment.Center
+                                    implicitLayoutAnimationsEnabled: false
+                                    gestureHandlers: TapHandler {
+                                        onTapped: {
+                                            if (wiv_photo.loading) {
+                                                croot.ListItem.view.getContext().viewimage(wiv_photo.getCachedPath());
+                                            } else {
+                                                wiv_photo.url = ListItemData["imgurl"]
+                                                wiv_photo.preferredWidth = displayInfo.pixelSize.width
+                                            }
+                                        }
+                                    }
+                                    visible: ! wiv_photo.loading
                                 }
                             }
                             Label {
@@ -155,8 +176,8 @@ Page {
                                 multiline: true
                                 textStyle.fontWeight: FontWeight.W200
                                 //                                textStyle.fontStyle: FontStyle.Italic
-                                textStyle.textAlign: TextAlign.Left 
-                                textStyle.fontSizeValue: croot.ListItem.view.font_size* 0.95
+                                textStyle.textAlign: TextAlign.Left
+                                textStyle.fontSizeValue: croot.ListItem.view.font_size * 0.95
                                 textStyle.fontSize: FontSize.PercentageValue
                                 horizontalAlignment: HorizontalAlignment.Fill
                             }

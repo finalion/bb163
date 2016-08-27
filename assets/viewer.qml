@@ -47,17 +47,59 @@ Page {
 
         ComponentDefinition {
             id: graph
-            WebImageView {
-                id: wiv
-                preferredWidth: 1000
-                scalingMethod: ScalingMethod.AspectFit
+//            WebImageView {
+//                id: wiv
+//                preferredWidth: 1000
+//                scalingMethod: ScalingMethod.AspectFit
+//                horizontalAlignment: HorizontalAlignment.Center
+//                implicitLayoutAnimationsEnabled: false
+//                gestureHandlers: TapHandler {
+//                    onTapped: {
+//                        _app.viewimage(wiv.getCachedPath())
+//                    }
+//                }
+//            }            
+            Container {
+                id: graphroot
+//                property alias url: wiv_photo.url
+                property string toLoadedUrl: ""
                 horizontalAlignment: HorizontalAlignment.Center
-                implicitLayoutAnimationsEnabled: false
-                gestureHandlers: TapHandler {
-                    onTapped: {
-                        _app.viewimage(wiv.getCachedPath())
+                ProgressIndicator {
+                    fromValue: 0
+                    toValue: 1
+                    value: wiv_photo.loading
+                    visible: wiv_photo.loading>0
+                    onProgressChanged: {
+                        if (progress == 1) {
+                            visible = false
+                            wiv_photo.visible = true
+                        }
                     }
                 }
+                WebImageView {
+                    id: wiv_photo
+                    url: "asset:///images/default.png" //ListItemData["imgurl"]
+                    preferredWidth: 200
+                    scalingMethod: ScalingMethod.AspectFit
+                    horizontalAlignment: HorizontalAlignment.Center
+                    implicitLayoutAnimationsEnabled: false
+                    gestureHandlers: TapHandler {
+                        onTapped: {
+                            if (wiv_photo.loading) {
+                               _app.viewimage(wiv_photo.getCachedPath());
+                            } else {
+                                wiv_photo.url = graphroot.toLoadedUrl
+                                wiv_photo.preferredWidth = 1000 //displayInfo.pixelSize.width
+                            }
+                        }
+                    }
+                    visible: ! wiv_photo.loading
+                }
+//                attachedObjects: [
+//                    DisplayInfo {
+//                        id: displayInfo
+//                    }
+//                ]
             }
         },
         QtObject {
@@ -108,7 +150,7 @@ Page {
                                 var imginfo = getImage(details, imgLabel)
                                 if (imginfo) {
                                     var image2add = graph.createObject(pageroot);
-                                    image2add.url = imginfo["src"];
+                                    image2add.toLoadedUrl = imginfo["src"];
                                     holder.add(image2add);
                                 }
                             })

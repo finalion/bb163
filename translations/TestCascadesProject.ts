@@ -37,27 +37,28 @@
 <context>
     <name>News</name>
     <message>
-        <location filename="../assets/News.qml" line="103"/>
+        <location filename="../assets/News.qml" line="105"/>
         <source>ERROR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/News.qml" line="104"/>
+        <location filename="../assets/News.qml" line="97"/>
+        <location filename="../assets/News.qml" line="106"/>
         <source>Error fetching data, Server response is [%1], please check your internet connection.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/News.qml" line="106"/>
+        <location filename="../assets/News.qml" line="108"/>
         <source>Reload</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/News.qml" line="107"/>
+        <location filename="../assets/News.qml" line="109"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/News.qml" line="108"/>
+        <location filename="../assets/News.qml" line="110"/>
         <source>Exit App</source>
         <translation type="unfinished"></translation>
     </message>
@@ -194,7 +195,7 @@
 <context>
     <name>viewer</name>
     <message>
-        <location filename="../assets/viewer.qml" line="178"/>
+        <location filename="../assets/viewer.qml" line="220"/>
         <source>Loading ...</source>
         <translation type="unfinished"></translation>
     </message>

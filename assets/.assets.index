@@ -1,9 +1,10 @@
 1
-21
+23
 about.qml
 colors.xml
 comments.qml
 Copy of main.qml
+cover.qml
 icons/appicon.png
 icons/ic_compose.png
 icons/ic_contact.png
@@ -13,6 +14,7 @@ icons/ic_reload.png
 icons/ic_textmessage_dk.png
 icons/ic_view_grid.png
 icons/ic_view_post.png
+images/default.png
 images/icon.png
 main.qml
 Net.qml

@@ -20,6 +20,8 @@
 #include <bb/cascades/QmlDocument>
 #include <bb/cascades/AbstractPane>
 #include <bb/cascades/LocaleHandler>
+#include <bb/cascades/Container>
+#include <bb/cascades/SceneCover>
 #include <iostream>
 
 using namespace bb::cascades;
@@ -33,7 +35,7 @@ ApplicationUI::ApplicationUI() :
     m_pInvokeManager = new bb::system::InvokeManager(this);
     networkmgr = new QNetworkAccessManager();
 
-    mNewsClassId = "T1295501906343";
+    mNewsClassId = "T1453256275238";
     initNewsHash();
     bool res = QObject::connect(m_pLocaleHandler, SIGNAL(systemLanguageChanged()), this,
             SLOT(onSystemLanguageChanged()));
@@ -55,6 +57,20 @@ ApplicationUI::ApplicationUI() :
 
     // Set created root object as the application scene
     Application::instance()->setScene(root);
+
+//    QmlDocument *qmlCover =
+//        QmlDocument::create("asset:///cover.qml").parent(this);
+//
+//    if (!qmlCover->hasErrors()) {
+//        // Create the QML Container from using the QMLDocument
+//        Container *coverContainer =
+//            qmlCover->createRootObject<Container>();
+//
+//        // Create a SceneCover and set the app cover
+//        SceneCover *sceneCover =
+//            SceneCover::create().content(coverContainer);
+//        Application::instance()->setCover(sceneCover);
+//    }
 }
 
 void ApplicationUI::initNewsHash()

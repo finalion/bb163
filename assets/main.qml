@@ -20,6 +20,64 @@ import bb.system 1.2
 
 TabbedPane {
     id: mainTab
+    onCreationCompleted: {
+        Application.setCover(multiCover)
+    }
+    attachedObjects: [
+        MultiCover {
+            id: multiCover
+            
+            SceneCover {
+                id: bigCover
+                // Use this cover when a large cover is required
+                MultiCover.level: CoverDetailLevel.High
+                content: Container {
+                    // Your large cover layout
+                    background: Color.create("#DA2B2B")
+                    Label {
+                        id: largeCoverText
+                        horizontalAlignment: HorizontalAlignment.Center
+                        verticalAlignment: VerticalAlignment.Center
+                        text: "头条新闻"
+                        textStyle.color: Color.White
+                        textStyle.fontSizeValue: 20.0
+                    }
+                }
+                function update() {
+                    // Update the large cover dynamically
+                    largeCoverText.text = _app.newsClassName+"新闻"
+                }
+            } // sceneCover HIGH
+            
+            SceneCover {
+                id: smallCover
+                // Use this cover when a small cover is required
+                MultiCover.level: CoverDetailLevel.Medium
+                content: Container {
+                    // Your small cover layout
+                    background: Color.create("#DA2B2B")
+                    Label {
+                        id: smallCoverText
+                        horizontalAlignment: HorizontalAlignment.Center
+                        verticalAlignment: VerticalAlignment.Center
+                        text: "头条"
+                        textStyle.color: Color.White
+                        textStyle.fontSizeValue: 5.0
+                    }
+                }
+                function update() {
+                    // Update the small cover dynamically
+                    smallCoverText.text = _app.newsClassName
+                }
+            } // sceneCover MEDIUM
+            
+            function update() {
+                bigCover.update()
+                smallCover.update()
+            }
+        }
+    ]
+    
 //    property NavigationPane np
     showTabsOnActionBar: false
     Menu.definition: MenuDefinition {
@@ -52,6 +110,7 @@ TabbedPane {
         }
         onTriggered: {
             _app.newsClassId = "T1453256275238"
+            multiCover.update()
         }
     }
     Tab {
@@ -68,6 +127,7 @@ TabbedPane {
         }
         onTriggered: {
             _app.newsClassId = "T1467284926140"
+            multiCover.update()
         }
     }
     Tab {
@@ -84,6 +144,7 @@ TabbedPane {
         }
         onTriggered: {
             _app.newsClassId = "T1453269751664"
+            multiCover.update()
         }
     }
 
@@ -101,6 +162,7 @@ TabbedPane {
         }
         onTriggered: {
             _app.newsClassId = "T1453256688395"
+            multiCover.update()
         }
     }
 
@@ -118,6 +180,7 @@ TabbedPane {
         }
         onTriggered: {
             _app.newsClassId = "T1453256766468"
+            multiCover.update()
         }
     }
 
@@ -135,6 +198,7 @@ TabbedPane {
         }
         onTriggered: {
             _app.newsClassId = "T1453255581705"
+            multiCover.update()
         }
     }
 
@@ -152,6 +216,7 @@ TabbedPane {
         }
         onTriggered: {
             _app.newsClassId = "T1453256532098"
+            multiCover.update()
         }
     }
 
@@ -169,6 +234,7 @@ TabbedPane {
         }
         onTriggered: {
             _app.newsClassId = "T1453259252417"
+            multiCover.update()
         }
     }
 
@@ -186,6 +252,7 @@ TabbedPane {
         }
         onTriggered: {
             _app.newsClassId = "T1453259453966"
+            multiCover.update()
         }
     }
 //    Tab {
@@ -218,6 +285,7 @@ TabbedPane {
         }
         onTriggered: {
             _app.newsClassId = "T1453259573806"
+            multiCover.update()
         }
     }
 }

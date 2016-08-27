@@ -46,7 +46,7 @@ static const uint qt_meta_data_ApplicationUI[] = {
 
  // properties: name, type, flags
       51,  249, 0x0a495903,
-     327,  249, 0x0a095001,
+     327,  249, 0x0a095401,
 
  // properties: notify_signal_id
        1,

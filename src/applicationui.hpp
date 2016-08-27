@@ -58,7 +58,7 @@ class ApplicationUI: public QObject
 {
 Q_OBJECT
     Q_PROPERTY(QString newsClassId READ getNewsClassId WRITE setNewsClassId NOTIFY newsTypeChanged FINAL)
-    Q_PROPERTY(QString newsClassName READ getNewsClassName)
+    Q_PROPERTY(QString newsClassName READ getNewsClassName CONSTANT)
 
 public:
     ApplicationUI();

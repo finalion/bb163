@@ -43,6 +43,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/about.qml) \
         $$quote($$BASEDIR/assets/colors.xml) \
         $$quote($$BASEDIR/assets/comments.qml) \
+        $$quote($$BASEDIR/assets/cover.qml) \
         $$quote($$BASEDIR/assets/icons/appicon.png) \
         $$quote($$BASEDIR/assets/icons/ic_compose.png) \
         $$quote($$BASEDIR/assets/icons/ic_contact.png) \
@@ -52,6 +53,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/icons/ic_textmessage_dk.png) \
         $$quote($$BASEDIR/assets/icons/ic_view_grid.png) \
         $$quote($$BASEDIR/assets/icons/ic_view_post.png) \
+        $$quote($$BASEDIR/assets/images/default.png) \
         $$quote($$BASEDIR/assets/images/icon.png) \
         $$quote($$BASEDIR/assets/main.qml) \
         $$quote($$BASEDIR/assets/photos_viewer.qml) \
