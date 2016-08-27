@@ -26,7 +26,7 @@ TabbedPane {
     attachedObjects: [
         MultiCover {
             id: multiCover
-            
+
             SceneCover {
                 id: bigCover
                 // Use this cover when a large cover is required
@@ -45,10 +45,10 @@ TabbedPane {
                 }
                 function update() {
                     // Update the large cover dynamically
-                    largeCoverText.text = _app.newsClassName+"新闻"
+                    largeCoverText.text = _app.newsClassName + "新闻"
                 }
             } // sceneCover HIGH
-            
+
             SceneCover {
                 id: smallCover
                 // Use this cover when a small cover is required
@@ -70,28 +70,28 @@ TabbedPane {
                     smallCoverText.text = _app.newsClassName
                 }
             } // sceneCover MEDIUM
-            
+
             function update() {
                 bigCover.update()
                 smallCover.update()
             }
         }
     ]
-    
-//    property NavigationPane np
+
+    //    property NavigationPane np
     showTabsOnActionBar: false
     Menu.definition: MenuDefinition {
         settingsAction: SettingsActionItem {
             onTriggered: {
-                var settingspage = Qt.createComponent("settings.qml").createObject(mainTab);                
-//                settingspage.nav = navroot;
-//                np.push(settingspage)
+                var settingspage = Qt.createComponent("settings.qml").createObject(mainTab);
+                //                settingspage.nav = navroot;
+                //                np.push(settingspage)
             }
         }
         helpAction: HelpActionItem {
             onTriggered: {
                 var aboutpage = Qt.createComponent("about.qml").createObject(mainTab);
-//                np.push(aboutpage)
+                //                np.push(aboutpage)
             }
         }
     }
@@ -101,15 +101,15 @@ TabbedPane {
         delegateActivationPolicy: TabDelegateActivationPolicy.ActivateWhenSelected
         delegate: Delegate {
             id: tabDelegateHead
-//                        News {
+            //                        News {
             //                type_title: tabHead.title
             //                news_type: "T1453256275238"
-//                        }
+            //                        }
             source: "News.qml"
 
         }
         onTriggered: {
-            _app.newsClassId = "T1453256275238"
+            _app.newsClassName = title
             multiCover.update()
         }
     }
@@ -126,7 +126,7 @@ TabbedPane {
             source: "News.qml"
         }
         onTriggered: {
-            _app.newsClassId = "T1467284926140"
+            _app.newsClassName = title;
             multiCover.update()
         }
     }
@@ -136,14 +136,14 @@ TabbedPane {
         delegateActivationPolicy: TabDelegateActivationPolicy.ActivateWhenSelected
         delegate: Delegate {
             id: tabDelegateSociety
-//            News {
-//                type_title: tabSociety.title
-//                news_type: "T1295505301714"
-//            }
+            //            News {
+            //                type_title: tabSociety.title
+            //                news_type: "T1295505301714"
+            //            }
             source: "News.qml"
         }
         onTriggered: {
-            _app.newsClassId = "T1453269751664"
+            _app.newsClassName = title;
             multiCover.update()
         }
     }
@@ -154,14 +154,14 @@ TabbedPane {
         delegateActivationPolicy: TabDelegateActivationPolicy.ActivateWhenSelected
         delegate: Delegate {
             id: tabDelegateFinance
-//            News {
-//                type_title: tabFinance.title
-//                news_type: "T1295505705196"
-//            }
+            //            News {
+            //                type_title: tabFinance.title
+            //                news_type: "T1295505705196"
+            //            }
             source: "News.qml"
         }
         onTriggered: {
-            _app.newsClassId = "T1453256688395"
+            _app.newsClassName = title;
             multiCover.update()
         }
     }
@@ -172,14 +172,14 @@ TabbedPane {
         delegateActivationPolicy: TabDelegateActivationPolicy.ActivateWhenSelected
         delegate: Delegate {
             id: tabDelegateScience
-//            News {
-//                type_title: tabScience.title
-//                news_type: "T1295507084100"
-//            }
+            //            News {
+            //                type_title: tabScience.title
+            //                news_type: "T1295507084100"
+            //            }
             source: "News.qml"
         }
         onTriggered: {
-            _app.newsClassId = "T1453256766468"
+            _app.newsClassName = title;
             multiCover.update()
         }
     }
@@ -190,14 +190,14 @@ TabbedPane {
         delegateActivationPolicy: TabDelegateActivationPolicy.ActivateWhenSelected
         delegate: Delegate {
             id: tabDelegateEntertain
-//            News {
-//                type_title: tabEntertain.title
-//                news_type: "T1295506658957"
-//            }
+            //            News {
+            //                type_title: tabEntertain.title
+            //                news_type: "T1295506658957"
+            //            }
             source: "News.qml"
         }
         onTriggered: {
-            _app.newsClassId = "T1453255581705"
+            _app.newsClassName = title;
             multiCover.update()
         }
     }
@@ -208,14 +208,14 @@ TabbedPane {
         delegateActivationPolicy: TabDelegateActivationPolicy.ActivateWhenSelected
         delegate: Delegate {
             id: tabDelegateSports
-//            News {
-//                type_title: tabSports.title
-//                news_type: "T1295505916992"
-//            }
+            //            News {
+            //                type_title: tabSports.title
+            //                news_type: "T1295505916992"
+            //            }
             source: "News.qml"
         }
         onTriggered: {
-            _app.newsClassId = "T1453256532098"
+            _app.newsClassName = title;
             multiCover.update()
         }
     }
@@ -226,14 +226,14 @@ TabbedPane {
         delegateActivationPolicy: TabDelegateActivationPolicy.ActivateWhenSelected
         delegate: Delegate {
             id: tabDelegateAuto
-//            News {
-//                type_title: tabAuto.title
-//                news_type: "T1295507338077"
-//            }
+            //            News {
+            //                type_title: tabAuto.title
+            //                news_type: "T1295507338077"
+            //            }
             source: "News.qml"
         }
         onTriggered: {
-            _app.newsClassId = "T1453259252417"
+            _app.newsClassName = title;
             multiCover.update()
         }
     }
@@ -244,33 +244,33 @@ TabbedPane {
         delegateActivationPolicy: TabDelegateActivationPolicy.ActivateWhenSelected
         delegate: Delegate {
             id: tabDelegateMilitary
-//            News {
-//                type_title: tabMilitary.title
-//                news_type: "T1295505447897"
-//            }
+            //            News {
+            //                type_title: tabMilitary.title
+            //                news_type: "T1295505447897"
+            //            }
             source: "News.qml"
         }
         onTriggered: {
-            _app.newsClassId = "T1453259453966"
+            _app.newsClassName = title;
             multiCover.update()
         }
     }
-//    Tab {
-//        id: tabPics
-//        title: "图片"
-//        delegateActivationPolicy: TabDelegateActivationPolicy.ActivateWhenSelected
-//        delegate: Delegate {
-//            id: tabDelegatePics
-//            //            News {
-//            //                type_title: tabMilitary.title
-//            //                news_type: "T1295505447897"
-//            //            }
-//            source: "News.qml"
-//        }
-//        onTriggered: {
-//            _app.newsClassId = "T1453260901051"
-//        }
-//    }
+    //    Tab {
+    //        id: tabPics
+    //        title: "图片"
+    //        delegateActivationPolicy: TabDelegateActivationPolicy.ActivateWhenSelected
+    //        delegate: Delegate {
+    //            id: tabDelegatePics
+    //            //            News {
+    //            //                type_title: tabMilitary.title
+    //            //                news_type: "T1295505447897"
+    //            //            }
+    //            source: "News.qml"
+    //        }
+    //        onTriggered: {
+    //            _app.newsClassId = "T1453260901051"
+    //        }
+    //    }
     Tab {
         id: tabHistory
         title: "历史"
@@ -284,7 +284,25 @@ TabbedPane {
             source: "News.qml"
         }
         onTriggered: {
-            _app.newsClassId = "T1453259573806"
+            _app.newsClassName = title;
+            multiCover.update()
+        }
+    }
+    
+    Tab {
+        id: tabFun
+        title: "轻松一刻"
+        delegateActivationPolicy: TabDelegateActivationPolicy.ActivateWhenSelected
+        delegate: Delegate {
+            id: tabDelegateFun
+            //            News {
+            //                type_title: tabMilitary.title
+            //                news_type: "T1295505447897"
+            //            }
+            source: "News.qml"
+        }
+        onTriggered: {
+            _app.newsClassName = title;
             multiCover.update()
         }
     }

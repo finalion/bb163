@@ -60,7 +60,7 @@ class ApplicationUI: public QObject
 {
 Q_OBJECT
     Q_PROPERTY(QString newsClassId READ getNewsClassId WRITE setNewsClassId NOTIFY newsTypeChanged FINAL)
-    Q_PROPERTY(QString newsClassName READ getNewsClassName CONSTANT)
+    Q_PROPERTY(QString newsClassName READ getNewsClassName WRITE setNewsClassName FINAL)
     Q_PROPERTY(QString networkTypeName READ getNetworkType CONSTANT)
     Q_PROPERTY(float displayWidth READ getDisplayPixelsWidth CONSTANT)
 
@@ -79,6 +79,7 @@ public:
     QString getNewsClassId();
     QString getNewsClassName();
     QString getNetworkType();
+    void setNewsClassName(QString newsClassName);
     float getDisplayPixelsWidth();
     void setNewsClassId(QString newsClassId);
 

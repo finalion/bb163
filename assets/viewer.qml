@@ -144,8 +144,8 @@ Page {
                 console.log(paras.length);
                 for (var i = 0; i < paras.length; i ++) {
                     var p = paras[i];
-                    //                    console.log("para "+i+p);
-                    if (p.indexOf("<!--IMG") >= 0) {
+                    // 处理图像段落
+                    if (p.indexOf("<!--IMG") == 0) {
                         var imgs = p.match(/<!--IMG#\d+-->/gi)
                         imgs.forEach(function(imgLabel) {
                                 var imginfo = getImage(details, imgLabel)
@@ -155,7 +155,9 @@ Page {
                                     holder.add(image2add);
                                 }
                             })
-                    } else if (p.indexOf("<!--link") >= 0) {
+                    } 
+                    // 处理链接段落
+                    else if (p.indexOf("<!--link") == 0) {
                         var link = getLink(details, p)
                         p = p.replace(/<!--link\d+-->/gi, "")
                         var text2add = para.createObject(pageroot)

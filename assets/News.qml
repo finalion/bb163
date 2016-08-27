@@ -31,39 +31,6 @@ NavigationPane {
             // Localized text with the dynamic translation and locale updates support
             title: qsTr(_app.newsClassName) + Retranslate.onLocaleOrLanguageChanged
             scrollBehavior: TitleBarScrollBehavior.NonSticky
-            //            kind: TitleBarKind.FreeForm
-            //            kindProperties: FreeFormTitleBarKindProperties {
-            //                Container {
-            //                    layout: DockLayout { }
-            //                    leftPadding: 10
-            //                    rightPadding: 10
-            //                    Label {
-            //                        text: "title"
-            //                        textStyle {
-            //                            color:  ui.palette.primaryDark
-            //                        }
-            //                        horizontalAlignment: HorizontalAlignment.Left
-            //                        verticalAlignment: VerticalAlignment.Center
-            //                        layoutProperties: StackLayoutProperties { spaceQuota: 1 }
-            //                    }
-            //                    SegmentedControl {
-            //                        id: segmentedControl
-            //                        horizontalAlignment: HorizontalAlignment.Right
-            //                        verticalAlignment: VerticalAlignment.Center
-            //                        Option {
-            //                            text: "全部"
-            //                            value: 0
-            //                        }
-            //                        Option {
-            //                            text: "图集"
-            //                            value: 1
-            //                        }
-            //                        onSelectedOptionChanged: {
-            //                            myExpandable.expandMode = selectedOption.value
-            //                        }
-            //                    }
-            //                }
-            //            }
         }
         actionBarVisibility: ChromeVisibility.Compact
         actionBarAutoHideBehavior: ActionBarAutoHideBehavior.HideOnScroll

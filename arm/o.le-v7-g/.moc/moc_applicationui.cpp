@@ -47,7 +47,7 @@ static const uint qt_meta_data_ApplicationUI[] = {
 
  // properties: name, type, flags
       51,  274, 0x0a495903,
-     352,  274, 0x0a095401,
+     352,  274, 0x0a095903,
      366,  274, 0x0a095401,
      388,  382, 0x87095401,
 
@@ -146,6 +146,7 @@ int ApplicationUI::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         void *_v = _a[0];
         switch (_id) {
         case 0: setNewsClassId(*reinterpret_cast< QString*>(_v)); break;
+        case 1: setNewsClassName(*reinterpret_cast< QString*>(_v)); break;
         }
         _id -= 4;
     } else if (_c == QMetaObject::ResetProperty) {

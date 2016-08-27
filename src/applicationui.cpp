@@ -48,7 +48,7 @@ ApplicationUI::ApplicationUI() :
     // compiler warning
     Q_UNUSED(res);
 
-    mNewsClassId = "T1453256275238";
+    mNewsClassName = "头条";
     initNewsHash();
 
     // initial load
@@ -86,27 +86,62 @@ void ApplicationUI::onConfigurationChanged()
 
 void ApplicationUI::initNewsHash()
 {
-    newsHash.insert("T1453256275238", "头条");
-    newsHash.insert("T1467284926140", "精选");
-    newsHash.insert("T1347415223240", "安卓头条");
-    newsHash.insert("T1453269751664", "社会");
-    newsHash.insert("T1453259573806", "历史");
-    newsHash.insert("T1453259453966", "军事");
-    newsHash.insert("T1444289532601", "哒哒趣闻");
-    newsHash.insert("T1453255581705", "娱乐");
-    newsHash.insert("T1453256532098", "体育");
-    newsHash.insert("T1453256688395", "财经");
-    newsHash.insert("T1453256766468", "科技");
-    newsHash.insert("T1453259252417", "汽车");
-    newsHash.insert("T1453259517430", "房产");
-    newsHash.insert("T1453259717295", "原创");
-    newsHash.insert("T1453260808770", "本地");
-    newsHash.insert("T1453260901051", "图片");
-    newsHash.insert("T1453270030687", "影视");
-    newsHash.insert("T1453270107128", "手机");
-    newsHash.insert("T1453270159608", "数码");
-    newsHash.insert("T1453270478489", "亲子");
-    newsHash.insert("T1348654225495", "教育");
+//    newsHash.insert("T1348647909107", "头条");
+//    newsHash.insert("T1467284926140", "精选");
+//    newsHash.insert("T1348648517839", "娱乐");
+//    newsHash.insert("T1348649079062", "体育");
+//    newsHash.insert("T1348648756099", "财经");
+//    newsHash.insert("T1348649580692", "科技");
+//    newsHash.insert("T1348650593803", "时尚");
+//    newsHash.insert("T1350383429665", "轻松一刻");
+//    newsHash.insert("T1348648141035", "军事");
+//    newsHash.insert("T1368497029546", "历史");
+//    newsHash.insert("T1348654105308", "家居");
+//    newsHash.insert("T1370583240249", "独家");
+//    newsHash.insert("T1348654151579", "游戏");
+//    newsHash.insert("T1414389941036", "健康");
+//    newsHash.insert("T1414142214384", "政务");
+//    newsHash.insert("T1444289532601", "哒哒趣闻");
+//    newsHash.insert("T1348648037603", "社会");
+//    newsHash.insert("T1347415223240", "安卓头条");
+//    newsHash.insert("T1453259252417", "汽车");
+//    newsHash.insert("T1453259517430", "房产");
+//    newsHash.insert("T1453259717295", "原创");
+//    newsHash.insert("T1453260808770", "本地");
+//    newsHash.insert("T1453260901051", "图片");
+//    newsHash.insert("T1453270030687", "影视");
+//    newsHash.insert("T1453270107128", "手机");
+//    newsHash.insert("T1453270159608", "数码");
+//    newsHash.insert("T1453270478489", "亲子");
+//    newsHash.insert("T1348654225495", "教育");
+    newsHash.insert("头条", "T1348647909107");
+    newsHash.insert("精选", "T1467284926140");
+    newsHash.insert("娱乐", "T1348648517839");
+    newsHash.insert("体育", "T1348649079062");
+    newsHash.insert("财经", "T1348648756099");
+    newsHash.insert("科技", "T1348649580692");
+    newsHash.insert("时尚", "T1348650593803");
+    newsHash.insert("轻松一刻", "T1350383429665");
+    newsHash.insert("军事", "T1348648141035");
+    newsHash.insert("历史", "T1368497029546");
+    newsHash.insert("家居", "T1348654105308");
+    newsHash.insert("独家", "T1370583240249");
+    newsHash.insert("游戏", "T1348654151579");
+    newsHash.insert("健康", "T1414389941036");
+    newsHash.insert("政务", "T1414142214384");
+    newsHash.insert("哒哒趣闻", "T1444289532601");
+    newsHash.insert("社会", "T1348648037603");
+    newsHash.insert("安卓头条", "T1347415223240");
+    newsHash.insert("汽车", "T1453259252417");
+    newsHash.insert("房产", "T1453259517430");
+    newsHash.insert("原创", "T1453259717295");
+    newsHash.insert("本地", "T1453260808770");
+    newsHash.insert("图片", "T1453260901051");
+    newsHash.insert("影视", "T1453270030687");
+    newsHash.insert("手机", "T1453270107128");
+    newsHash.insert("数码", "T1453270159608");
+    newsHash.insert("亲子", "T1453270478489");
+    newsHash.insert("教育", "T1348654225495");
 }
 
 void ApplicationUI::onSystemLanguageChanged()
@@ -204,14 +239,10 @@ void ApplicationUI::viewimage(QString path)
 
 QString ApplicationUI::getNewsClassId()
 {
-    return mNewsClassId;
-}
-
-QString ApplicationUI::getNewsClassName()
-{
     QHash<QString, QString>::const_iterator iter;
-    iter = newsHash.find(mNewsClassId);
+    iter = newsHash.find(mNewsClassName);
     if (iter != newsHash.end()) {
+    qDebug() << "mapped:" <<iter.value();
         return iter.value();
     }
     return "";
@@ -221,6 +252,16 @@ void ApplicationUI::setNewsClassId(QString newsClassId)
 {
     mNewsClassId = newsClassId;
     emit newsTypeChanged(mNewsClassId);
+}
+
+QString ApplicationUI::getNewsClassName()
+{
+    return mNewsClassName;
+}
+
+void ApplicationUI::setNewsClassName(QString newsClassName)
+{
+    mNewsClassName = newsClassName;
 }
 
 QString ApplicationUI::getNetworkType()
