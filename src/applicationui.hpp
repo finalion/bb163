@@ -27,7 +27,9 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QNetworkRequest>
+#include <QtNetwork/QNetworkConfigurationManager>
 #include <QHash>
+#include <bb/device/DisplayInfo>
 
 //#include "D:/bbndk/target_10_3_1_995/qnx6/usr/include/qt4/QtCore/QString"
 //#include "D:/bbndk/target_10_3_1_995/qnx6/usr/include/qt4/QtNetwork/QtNetwork"
@@ -59,6 +61,8 @@ class ApplicationUI: public QObject
 Q_OBJECT
     Q_PROPERTY(QString newsClassId READ getNewsClassId WRITE setNewsClassId NOTIFY newsTypeChanged FINAL)
     Q_PROPERTY(QString newsClassName READ getNewsClassName CONSTANT)
+    Q_PROPERTY(QString networkTypeName READ getNetworkType CONSTANT)
+    Q_PROPERTY(float displayWidth READ getDisplayPixelsWidth CONSTANT)
 
 public:
     ApplicationUI();
@@ -74,6 +78,8 @@ public:
 
     QString getNewsClassId();
     QString getNewsClassName();
+    QString getNetworkType();
+    float getDisplayPixelsWidth();
     void setNewsClassId(QString newsClassId);
 
     QHash<QString,QString> newsHash;
@@ -83,7 +89,7 @@ private slots:
 
     void onArticleCreated();
     void onErrorOcurred(QNetworkReply::NetworkError error);
-
+    void onConfigurationChanged();
 
 signals:
     void newsTypeChanged(QString newsClassId);
@@ -94,10 +100,13 @@ private:
 
     QNetworkReply *reply;
     QNetworkAccessManager *networkmgr;
+    QNetworkConfigurationManager *networkConfigMgr;
     bb::system::InvokeManager* m_pInvokeManager;
 
     QString mNewsClassId;
     QString mNewsClassName;
+    QString mNetworkTypeName;
+    bb::device::DisplayInfo dspInfo;
     void initNewsHash();
 };
 

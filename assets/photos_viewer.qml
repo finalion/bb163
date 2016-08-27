@@ -143,7 +143,7 @@ Page {
                                     fromValue: 0
                                     toValue: 1
                                     value: wiv_photo.loading
-                                    visible: wiv_photo.loading>0
+                                    visible: wiv_photo.loading > 0
                                     onProgressChanged: {
                                         if (progress == 1) {
                                             visible = false
@@ -153,8 +153,8 @@ Page {
                                 }
                                 WebImageView {
                                     id: wiv_photo
-                                    url: "asset:///images/default.png" //ListItemData["imgurl"]
-                                    preferredWidth: 200
+                                    url: (croot.ListItem.view.getContext().networkTypeName == "WLAN" )? ListItemData["imgurl"]:"asset:///images/default.png"
+                                    preferredWidth: (croot.ListItem.view.getContext().networkTypeName == "WLAN" )?displayInfo.pixelSize.width:300;
                                     scalingMethod: ScalingMethod.AspectFit
                                     horizontalAlignment: HorizontalAlignment.Center
                                     implicitLayoutAnimationsEnabled: false

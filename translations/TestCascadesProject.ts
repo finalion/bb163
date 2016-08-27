@@ -195,7 +195,7 @@
 <context>
     <name>viewer</name>
     <message>
-        <location filename="../assets/viewer.qml" line="220"/>
+        <location filename="../assets/viewer.qml" line="221"/>
         <source>Loading ...</source>
         <translation type="unfinished"></translation>
     </message>

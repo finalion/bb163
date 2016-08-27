@@ -58,7 +58,8 @@ Page {
 //                        _app.viewimage(wiv.getCachedPath())
 //                    }
 //                }
-//            }            
+//            }   
+      
             Container {
                 id: graphroot
 //                property alias url: wiv_photo.url
@@ -78,8 +79,8 @@ Page {
                 }
                 WebImageView {
                     id: wiv_photo
-                    url: "asset:///images/default.png" //ListItemData["imgurl"]
-                    preferredWidth: 200
+                    url: (_app.networkTypeName == "WLAN" )? graphroot.toLoadedUrl:"asset:///images/default.png"   
+                    preferredWidth: (_app.networkTypeName == "WLAN" )?_app.displayWidth:300;
                     scalingMethod: ScalingMethod.AspectFit
                     horizontalAlignment: HorizontalAlignment.Center
                     implicitLayoutAnimationsEnabled: false
@@ -89,7 +90,7 @@ Page {
                                _app.viewimage(wiv_photo.getCachedPath());
                             } else {
                                 wiv_photo.url = graphroot.toLoadedUrl
-                                wiv_photo.preferredWidth = 1000 //displayInfo.pixelSize.width
+                                wiv_photo.preferredWidth = _app.displayWidth //displayInfo.pixelSize.width
                             }
                         }
                     }
@@ -99,7 +100,7 @@ Page {
 //                    DisplayInfo {
 //                        id: displayInfo
 //                    }
-//                ]
+//                ]   
             }
         },
         QtObject {

@@ -32,22 +32,28 @@ ApplicationUI::ApplicationUI() :
     // prepare the localization
     m_pTranslator = new QTranslator(this);
     m_pLocaleHandler = new LocaleHandler(this);
-    m_pInvokeManager = new bb::system::InvokeManager(this);
-    networkmgr = new QNetworkAccessManager();
-
-    mNewsClassId = "T1453256275238";
-    initNewsHash();
     bool res = QObject::connect(m_pLocaleHandler, SIGNAL(systemLanguageChanged()), this,
             SLOT(onSystemLanguageChanged()));
     // This is only available in Debug builds
+    Q_ASSERT(res);
+
+    m_pInvokeManager = new bb::system::InvokeManager(this);
+    networkmgr = new QNetworkAccessManager();
+    networkConfigMgr = new QNetworkConfigurationManager();
+//    res = QObject::connect(networkConfigMgr, SIGNAL(onlineStateChanged(bool)),this, SLOT(onOnlineStatusChanged(bool)));
+//    Q_ASSERT(res);
+    res = QObject::connect(networkConfigMgr, SIGNAL(configurationChanged(const QNetworkConfiguration &)), this, SLOT(onConfigurationChanged()));
     Q_ASSERT(res);
     // Since the variable is not used in the app, this is added to avoid a
     // compiler warning
     Q_UNUSED(res);
 
+    mNewsClassId = "T1453256275238";
+    initNewsHash();
+
     // initial load
     onSystemLanguageChanged();
-
+    onConfigurationChanged();
     // Create scene document from main.qml asset, the parent is set
     // to ensure the document gets destroyed properly at shut down.
     QmlDocument *qml = QmlDocument::create("asset:///main.qml").parent(this);
@@ -71,6 +77,11 @@ ApplicationUI::ApplicationUI() :
 //            SceneCover::create().content(coverContainer);
 //        Application::instance()->setCover(sceneCover);
 //    }
+}
+
+void ApplicationUI::onConfigurationChanged()
+{
+   mNetworkTypeName = networkmgr->activeConfiguration().bearerTypeName();
 }
 
 void ApplicationUI::initNewsHash()
@@ -210,4 +221,13 @@ void ApplicationUI::setNewsClassId(QString newsClassId)
 {
     mNewsClassId = newsClassId;
     emit newsTypeChanged(mNewsClassId);
+}
+
+QString ApplicationUI::getNetworkType()
+{
+    return mNetworkTypeName;
+}
+
+float ApplicationUI::getDisplayPixelsWidth(){
+    return dspInfo.pixelSize().width();
 }
